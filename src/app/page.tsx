@@ -128,7 +128,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-6"
           >
-            מפת קורסים אקדמיים
+            Welcome to CourseMap
           </motion.h1>
           
           <motion.p 
@@ -137,12 +137,12 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
-            🎓 גלו את כל הקורסים הזמינים, חפשו לפי נושא או מרצה, וקבלו גישה מהירה למידע חשוב על כל קורס
+            Discover all available courses, search by topic or instructor, and get quick access to important information about each course.
           </motion.p>
 
           {/* Search Bar */}
           <div className="mb-8">
-            <SearchBar onSearch={handleSearch} placeholder="חפש קורס, מרצה או נושא..." />
+            <SearchBar onSearch={handleSearch} placeholder="Search courses, instructors, or topics..." />
           </div>
 
           {/* Go to Course Map Button */}
@@ -153,7 +153,7 @@ export default function Home() {
             className="mb-16"
           >
             <PrimaryButton onClick={goToCourseMap} size="lg">
-              עבור למפת הקורסים
+              Go to Course Map
             </PrimaryButton>
           </motion.div>
         </div>
@@ -262,7 +262,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-blue-100">Created with ❤️ by Meir Crombie 💻</p>
+          <p className="text-blue-100">© 2025 CourseMap. All rights reserved.</p>
         </div>
       </footer>
     </div>

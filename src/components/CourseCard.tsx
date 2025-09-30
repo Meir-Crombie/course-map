@@ -34,7 +34,7 @@ export default function CourseCard({ course, index }: CourseCardProps) {
               ? 'bg-red-50 text-red-700 border-red-200' 
               : 'bg-green-50 text-green-700 border-green-200'
           }`}>
-            {course.mandatoryAttendance ? 'נוכחות חובה' : 'נוכחות רשות'}
+            {course.mandatoryAttendance ? 'Mandatory' : 'Optional'}
           </div>
         </div>
 
@@ -45,12 +45,12 @@ export default function CourseCard({ course, index }: CourseCardProps) {
           </h3>
           
           <p className="text-gray-700 text-sm mb-4 leading-relaxed">
-            {course.description || 'קורס מתקדם המיועד לסטודנטים עם רקע בסיסי בתחום. הקורס כולל הרצאות, תרגילים מעשיים ופרויקט גמר.'}
+            {course.description || 'Advanced course designed for students with basic background in the field. Includes lectures, practical exercises, and a final project.'}
           </p>
 
           <div className="flex items-center text-gray-600 text-sm mb-6 bg-blue-50 p-2 rounded-lg">
             <User className="w-4 h-4 ml-2 text-blue-600" />
-            <span>רכז: {course.coordinator}</span>
+            <span>Coordinator: {course.coordinator}</span>
           </div>
         </div>
 
@@ -61,7 +61,7 @@ export default function CourseCard({ course, index }: CourseCardProps) {
             whileTap={{ scale: 0.98 }}
             className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center shadow-lg"
           >
-            <span>צפה בפרטים</span>
+            <span>View Details</span>
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
           </motion.button>
         </Link>

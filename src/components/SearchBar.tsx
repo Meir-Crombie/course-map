@@ -8,7 +8,7 @@ interface SearchBarProps {
   placeholder?: string
 }
 
-export default function SearchBar({ onSearch, placeholder = "חפש קורס..." }: SearchBarProps) {
+export default function SearchBar({ onSearch, placeholder = "Search courses..." }: SearchBarProps) {
   const [query, setQuery] = useState("")
   const [isFocused, setIsFocused] = useState(false)
 
