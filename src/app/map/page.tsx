@@ -1,4 +1,5 @@
 "use client"
+
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { MapPin, Construction } from "lucide-react"
@@ -10,7 +11,7 @@ export default function MapPage() {
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/90 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50 shadow-sm"
+        className="bg-white/90 backdrop-blur-md sticky top-0 z-50" style={{boxShadow: 'var(--shadow-sm)'}}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -29,7 +30,7 @@ export default function MapPage() {
               <Link href="/news" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
                 News
               </Link>
-              <Link href="/map" className="text-primary bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg text-sm font-medium">
+              <Link href="/map" className="text-primary bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium" style={{color: 'var(--color-primary)', backgroundColor: 'rgba(59, 130, 246, 0.1)', boxShadow: 'var(--shadow-sm)'}}>
                 Map
               </Link>
             </div>
@@ -53,7 +54,7 @@ export default function MapPage() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-white/70 backdrop-blur-lg rounded-2xl p-12 border border-white/20 shadow-lg min-h-[500px] flex flex-col items-center justify-center text-center"
+          className="bg-white/70 backdrop-blur-lg rounded-2xl p-12 min-h-[500px] flex flex-col items-center justify-center text-center" style={{boxShadow: 'var(--shadow-lg)', backgroundColor: 'var(--color-bg-card)'}}
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}

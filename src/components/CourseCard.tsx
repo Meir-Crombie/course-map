@@ -23,17 +23,20 @@ export default function CourseCard({ course, index }: CourseCardProps) {
       whileHover={{ y: -8 }}
       className="group"
     >
-      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100 h-full flex flex-col">
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 h-full flex flex-col" style={{boxShadow: 'var(--shadow-md)', backgroundColor: 'var(--color-bg-card)'}}>
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="p-3 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition-colors">
             <BookOpen className="w-6 h-6 text-blue-600" />
           </div>
-          <div className={`px-3 py-1 rounded-full text-xs font-medium border ${
-            course.mandatoryAttendance 
-              ? 'bg-red-50 text-red-700 border-red-200' 
-              : 'bg-green-50 text-green-700 border-green-200'
-          }`}>
+          <div 
+            className="px-3 py-1 rounded-full text-xs font-medium"
+            style={{
+              backgroundColor: course.mandatoryAttendance ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)',
+              color: course.mandatoryAttendance ? '#EF4444' : 'var(--color-optional)',
+              boxShadow: 'var(--shadow-sm)'
+            }}
+          >
             {course.mandatoryAttendance ? 'Mandatory' : 'Optional'}
           </div>
         </div>

@@ -21,7 +21,7 @@ export default function CourseInfoCard({ course }: CourseInfoCardProps) {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-white/20 backdrop-blur-lg rounded-2xl p-8 border border-white/20 shadow-xl"
+      className="bg-white/20 backdrop-blur-lg rounded-2xl p-8" style={{boxShadow: 'var(--shadow-lg)', backgroundColor: 'var(--color-bg-card)'}}
     >
       <div className="space-y-6">
         <div>

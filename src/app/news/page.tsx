@@ -48,7 +48,7 @@ export default function NewsPage() {
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/90 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50 shadow-sm"
+        className="bg-white/90 backdrop-blur-md sticky top-0 z-50" style={{boxShadow: 'var(--shadow-sm)'}}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -64,7 +64,7 @@ export default function NewsPage() {
               <Link href="/courses" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
                 Courses
               </Link>
-              <Link href="/news" className="text-primary bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg text-sm font-medium">
+              <Link href="/news" className="text-primary bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium" style={{color: 'var(--color-primary)', backgroundColor: 'rgba(59, 130, 246, 0.1)', boxShadow: 'var(--shadow-sm)'}}>
                 News
               </Link>
               <Link href="/map" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
@@ -94,7 +94,7 @@ export default function NewsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white/70 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-white/70 backdrop-blur-lg rounded-2xl p-6 transition-all duration-300" style={{boxShadow: 'var(--shadow-md)', backgroundColor: 'var(--color-bg-card)'}}
             >
               <div className="mb-4">
                 <h2 className="text-xl font-bold text-primary mb-2 hover:text-blue-800 transition-colors">

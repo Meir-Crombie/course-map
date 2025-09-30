@@ -98,7 +98,7 @@ export default function Home() {
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/90 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50 shadow-sm"
+        className="bg-white/90 backdrop-blur-md sticky top-0 z-50" style={{boxShadow: 'var(--shadow-sm)'}}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -108,7 +108,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="flex items-center space-x-8">
-              <Link href="/" className="text-blue-600 bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg text-sm font-medium">
+              <Link href="/" className="text-blue-600 bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium" style={{color: 'var(--color-primary)', backgroundColor: 'rgba(59, 130, 246, 0.1)', boxShadow: 'var(--shadow-sm)'}}>
                 בית
               </Link>
               <Link href="/courses" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
@@ -248,7 +248,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl border border-blue-100 transition-all duration-300 text-center"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 text-center" style={{boxShadow: 'var(--shadow-md)', backgroundColor: 'var(--color-bg-card)'}}
               >
                 <div className="text-4xl mb-4 bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-blue-700 mb-4">{feature.title}</h3>

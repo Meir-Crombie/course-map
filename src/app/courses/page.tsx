@@ -41,7 +41,7 @@ export default function CoursesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-50">
       {/* Navigation Bar */}
-      <nav className="bg-white/90 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-white/90 backdrop-blur-md sticky top-0 z-50" style={{boxShadow: 'var(--shadow-sm)'}}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -53,7 +53,7 @@ export default function CoursesPage() {
               <Link href="/" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
                 Home
               </Link>
-              <Link href="/courses" className="text-primary bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg text-sm font-medium">
+              <Link href="/courses" className="text-primary bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium" style={{color: 'var(--color-primary)', backgroundColor: 'rgba(59, 130, 246, 0.1)', boxShadow: 'var(--shadow-sm)'}}>
                 Courses
               </Link>
               <Link href="/news" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
@@ -75,7 +75,7 @@ export default function CoursesPage() {
         
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {courses.map((course, index) => (
-            <div key={course.id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105 border border-blue-100">
+            <div key={course.id} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 hover:transform hover:scale-105" style={{boxShadow: 'var(--shadow-md)', backgroundColor: 'var(--color-bg-card)'}}>
               <Link href={`/courses/${course.id}`}>
                 <h2 className="text-xl font-semibold mb-3 text-blue-700 hover:text-blue-900 transition-colors">
                   {course.name}
