@@ -161,40 +161,44 @@ export default function Home() {
 
       {/* Search Results */}
       {searchResults.length > 0 && (
-        <section className="pb-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+        <main className="courses-container">
+          <section className="courses-section">
             <motion.h2
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-2xl font-bold text-primary mb-8 text-center"
+              className="section-title"
             >
               תוצאות חיפוש ({searchResults.length})
             </motion.h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="courses-grid">
               {searchResults.map((course, index) => (
-                <CourseCard key={course.id} course={course} index={index} />
+                <article key={course.id}>
+                  <CourseCard course={course} index={index} />
+                </article>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
+        </main>
       )}
 
       {/* Featured Courses */}
       {searchResults.length === 0 && (
-        <section className="pb-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+        <main className="courses-container">
+          <section className="courses-section">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-3xl font-bold text-primary mb-12 text-center"
+              className="section-title"
             >
               קורסים מובילים
             </motion.h2>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="courses-grid">
               {displayedCourses.map((course, index) => (
-                <CourseCard key={course.id} course={course} index={index} />
+                <article key={course.id}>
+                  <CourseCard course={course} index={index} />
+                </article>
               ))}
             </div>
 
@@ -208,8 +212,8 @@ export default function Home() {
                 צפה בכל הקורסים
               </PrimaryButton>
             </motion.div>
-          </div>
-        </section>
+          </section>
+        </main>
       )}
 
       {/* Features Section */}
