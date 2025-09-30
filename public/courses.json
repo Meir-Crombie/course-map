@@ -1,0 +1,16 @@
+[
+  {
+    "id": "intro-cs",
+    "name": "מבוא למדעי המחשב",
+    "syllabus": "/docs/intro-cs.pdf",
+    "mandatoryAttendance": true,
+    "coordinator": "ד\"ר כהן"
+  },
+  {
+    "id": "algorithms",
+    "name": "אלגוריתמים",
+    "syllabus": "/docs/algorithms.pdf",
+    "mandatoryAttendance": false,
+    "coordinator": "פרופ' לוי"
+  }
+]
