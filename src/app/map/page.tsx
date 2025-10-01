@@ -67,7 +67,7 @@ export default function MapPage() {
             </div>
             <h2 className="text-2xl font-bold text-primary mb-4">Coming Soon</h2>
             <p className="text-gray-700 max-w-md mx-auto leading-relaxed">
-              We're building an interactive map to visualize course relationships, prerequisites, 
+              We&apos;re building an interactive map to visualize course relationships, prerequisites, 
               and academic pathways. This feature will help students plan their academic journey more effectively.
             </p>
           </motion.div>
