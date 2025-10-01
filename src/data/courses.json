@@ -1,14 +1,544 @@
 {
   "courses": [
     {
-      "id": 1,
-      "name": "Course 1",
-      "description": "Description for course 1"
+      "id": "math_prep",
+      "name": "קדם במתמטיקה",
+      "credits": 0,
+      "semester": "אלול",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": [],
+      "description": "קורס הכנה במתמטיקה"
     },
     {
-      "id": 2,
-      "name": "Course 2",
-      "description": "Description for course 2"
+      "id": "intro_computers",
+      "name": "מבוא למחשבים",
+      "credits": 0,
+      "semester": "אלול",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": [],
+      "description": "היכרות ראשונית עם מחשבים"
+    },
+    {
+      "id": "linear_algebra_1",
+      "name": "אלגברה לינארית א",
+      "credits": 3,
+      "semester": "א",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["math_prep"],
+      "description": "יסודות האלגברה הלינארית"
+    },
+    {
+      "id": "library_resources",
+      "name": "הכרת משאבי הספרייה",
+      "credits": 0,
+      "semester": "א",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": [],
+      "description": "היכרות עם משאבי הספרייה האקדמית"
+    },
+    {
+      "id": "calculus_1",
+      "name": "אינפי א",
+      "credits": 5,
+      "semester": "א",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["math_prep"],
+      "description": "חשבון דיפרנציאלי ואינטגרלי - חלק א"
+    },
+    {
+      "id": "intro_cs",
+      "name": "מבוא למדעי המחשב",
+      "credits": 4,
+      "semester": "א",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["intro_computers"],
+      "corequisites": [],
+      "alternativePrerequisites": "מבוא למחשבים או בגרות במדעי המחשב",
+      "description": "מבוא לתכנות ומושגי יסוד במדעי המחשב"
+    },
+    {
+      "id": "digital_systems",
+      "name": "מערכות ספרתיות",
+      "credits": 3.5,
+      "semester": "א",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": [],
+      "description": "לוגיקה דיגיטלית ומערכות ספרתיות בסיסיות"
+    },
+    {
+      "id": "physics_1",
+      "name": "פיזיקה למחשבים (פיזיקה א)",
+      "credits": 3.5,
+      "semester": "א",
+      "year": "א",
+      "mandatory": false,
+      "prerequisites": [],
+      "corequisites": ["math_prep"],
+      "notes": "ניתן לקחת במקביל לקורס קדם פיזיקה למחשבים",
+      "description": "יסודות הפיזיקה למדעי המחשב"
+    },
+    {
+      "id": "linear_algebra_2",
+      "name": "אלגברה לינארית ב",
+      "credits": 2.5,
+      "semester": "ב",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["math_prep", "linear_algebra_1", "calculus_1"],
+      "description": "המשך אלגברה לינארית - נושאים מתקדמים"
+    },
+    {
+      "id": "calculus_2",
+      "name": "אינפי ב",
+      "credits": 5,
+      "semester": "ב",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["calculus_1"],
+      "description": "חשבון דיפרנציאלי ואינטגרלי - חלק ב"
+    },
+    {
+      "id": "computer_structure",
+      "name": "מבנה המחשב",
+      "credits": 3,
+      "semester": "ב",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["digital_systems"],
+      "description": "ארכיטקטורת מחשבים ומבנה חומרה"
+    },
+    {
+      "id": "data_structures_1",
+      "name": "מבנה נתונים א",
+      "credits": 3.5,
+      "semester": "ב",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["calculus_1", "intro_cs"],
+      "description": "מבני נתונים בסיסיים ואלגוריתמים"
+    },
+    {
+      "id": "computer_structure_lab",
+      "name": "מעבדה במבנה המחשב",
+      "credits": 1,
+      "semester": "ב",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["digital_systems"],
+      "description": "תרגול מעשי במבנה המחשב"
+    },
+    {
+      "id": "advanced_programming",
+      "name": "תכנות מתקדם",
+      "credits": 3,
+      "semester": "ב",
+      "year": "א",
+      "mandatory": true,
+      "prerequisites": ["intro_cs"],
+      "corequisites": ["data_structures_1"],
+      "notes": "מבנה נתונים א נלמד במקביל לקורס זה",
+      "description": "טכניקות תכנות מתקדמות"
+    },
+    {
+      "id": "probability",
+      "name": "הסתברות",
+      "credits": 2.5,
+      "semester": "אלול",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": [],
+      "requiredKnowledge": ["calculus_1", "calculus_2"],
+      "notes": "ידע באינפי א וב - לא ודווקא שהקורס נלקח",
+      "description": "תורת ההסתברות ויישומיה"
+    },
+    {
+      "id": "mathematical_logic",
+      "name": "לוגיקה מתמטית",
+      "credits": 2.5,
+      "semester": "אלול",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["math_prep"],
+      "description": "יסודות הלוגיקה המתמטית"
+    },
+    {
+      "id": "intro_software_engineering",
+      "name": "מבוא להנדסת תוכנה",
+      "credits": 3,
+      "semester": "א",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["linear_algebra_1", "intro_cs", "advanced_programming", "data_structures_1"],
+      "description": "עקרונות הנדסת תוכנה ומתודולוגיות פיתוח"
+    },
+    {
+      "id": "data_structures_2",
+      "name": "מבני נתונים ב",
+      "credits": 4,
+      "semester": "א",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["data_structures_1"],
+      "description": "מבני נתונים מתקדמים ואלגוריתמים מורכבים"
+    },
+    {
+      "id": "mini_project_windows",
+      "name": "מיני פרוייקט במערכות חלונות",
+      "credits": 3,
+      "semester": "א",
+      "year": "ב",
+      "mandatory": false,
+      "prerequisites": ["advanced_programming", "data_structures_1"],
+      "description": "פרויקט מעשי בפיתוח תוכנה לסביבת Windows"
+    },
+    {
+      "id": "differential_equations",
+      "name": "משוואות דפרנציאליות",
+      "credits": 3.5,
+      "semester": "א",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["calculus_1", "linear_algebra_1"],
+      "description": "משוואות דיפרנציאליות רגילות וחלקיות"
+    },
+    {
+      "id": "discrete_math",
+      "name": "מתמטיקה בדידה",
+      "credits": 2.5,
+      "semester": "א",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["math_prep"],
+      "description": "קומבינטוריקה, תורת הגרפים ומבני מתמטיקה בדידים"
+    },
+    {
+      "id": "statistics",
+      "name": "סטטיסטיקה למהנדסים",
+      "credits": 2.5,
+      "semester": "א",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["probability"],
+      "description": "שיטות סטטיסטיות ליישומים הנדסיים"
+    },
+    {
+      "id": "physics_2",
+      "name": "פיזיקה ב",
+      "credits": 3.5,
+      "semester": "א",
+      "year": "ב",
+      "mandatory": false,
+      "prerequisites": [],
+      "description": "המשך פיזיקה - חשמל ומגנטיות"
+    },
+    {
+      "id": "automata_formal_languages",
+      "name": "אוטומטים ושפות פורמליות",
+      "credits": 4,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["data_structures_1", "discrete_math", "mathematical_logic"],
+      "description": "תורת האוטומטים, שפות פורמליות וחישוביות"
+    },
+    {
+      "id": "intro_information_security",
+      "name": "מבוא לאבטחת מידע",
+      "credits": 3,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": false,
+      "prerequisites": ["computer_structure"],
+      "requiredKnowledge": ["תכנות ב-C++/C"],
+      "description": "יסודות אבטחת מידע וקריפטוגרפיה"
+    },
+    {
+      "id": "intro_ai_data_science",
+      "name": "מבוא לבינה מלאכותית ומדע נתונים",
+      "credits": 3,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": false,
+      "prerequisites": ["data_structures_1", "data_structures_2"],
+      "description": "מושגי יסוד בבינה מלאכותית ועיבוד נתונים"
+    },
+    {
+      "id": "intro_reversing",
+      "name": "מבוא לריברסינג",
+      "credits": 3.5,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": false,
+      "prerequisites": [],
+      "description": "הנדסה חוזרת של תוכנה"
+    },
+    {
+      "id": "intro_computer_networks",
+      "name": "מבוא לתקשורת מחשבים",
+      "credits": 4,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["calculus_1"],
+      "description": "פרוטוקולי תקשורת ורשתות מחשבים"
+    },
+    {
+      "id": "mini_project_software_engineering",
+      "name": "מיני פרוייקט במבוא להנדסת תוכנה",
+      "credits": 1.5,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["linear_algebra_1", "intro_cs", "advanced_programming", "data_structures_1"],
+      "corequisites": ["intro_software_engineering"],
+      "notes": "מבוא להנדסת תוכנה - אפשר לקחת במקביל לקורס זה",
+      "description": "פרויקט מעשי בהנדסת תוכנה"
+    },
+    {
+      "id": "operating_systems",
+      "name": "מערכות הפעלה",
+      "credits": 4,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["intro_cs", "computer_structure", "data_structures_1"],
+      "description": "עקרונות מערכות הפעלה וניהול משאבים"
+    },
+    {
+      "id": "secure_code_execution",
+      "name": "מערכות להרצת קוד בסביבה בטוחה",
+      "credits": 2,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": false,
+      "prerequisites": ["intro_information_security"],
+      "description": "טכניקות להרצה מבודדת ובטוחה של קוד"
+    },
+    {
+      "id": "functional_logic_programming",
+      "name": "תכנות פונקציונלית ולוגית",
+      "credits": 3.5,
+      "semester": "ב",
+      "year": "ב",
+      "mandatory": true,
+      "prerequisites": ["data_structures_1", "discrete_math"],
+      "description": "פרדיגמות תכנות פונקציונלית ולוגית"
+    },
+    {
+      "id": "intro_unix",
+      "name": "אלול מערכות UNIX",
+      "credits": 2.5,
+      "semester": "אלול",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": ["intro_cs", "data_structures_1", "operating_systems"],
+      "description": "עבודה עם מערכות הפעלה מבוססות UNIX"
+    },
+    {
+      "id": "english_cs",
+      "name": "אלול אנגלית למדעי המחשב",
+      "credits": 2,
+      "semester": "אלול",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["אנגלית מתקדמים ב"],
+      "description": "אנגלית טכנית למדעי המחשב"
+    },
+    {
+      "id": "advanced_c_workshop",
+      "name": "סדנא מתקדמת ב-C",
+      "credits": 1.5,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": [],
+      "requiredKnowledge": ["תכנות ב-C++ או C (מבוא למדמ\"ח או תכנות מתקדם)"],
+      "description": "תכנות מתקדם בשפת C"
+    },
+    {
+      "id": "databases",
+      "name": "בסיסי נתונים",
+      "credits": 3,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": [],
+      "description": "מערכות ניהול בסיסי נתונים ו-SQL"
+    },
+    {
+      "id": "windows_systems_engineering",
+      "name": "הנדסת מערכות חלונות",
+      "credits": 2,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": ["advanced_programming", "mini_project_windows"],
+      "description": "פיתוח מתקדם לסביבת Windows"
+    },
+    {
+      "id": "software_security_foundations",
+      "name": "יסודות באבטחת תוכנה",
+      "credits": 3.5,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": ["intro_information_security"],
+      "notes": "הקורס אמנם יהיה בעברית אבל יהיה הרבה קריאה באנגלית",
+      "description": "עקרונות אבטחה בפיתוח תוכנה"
+    },
+    {
+      "id": "software_engineering",
+      "name": "הנדסת תוכנה",
+      "credits": 4,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["intro_software_engineering"],
+      "description": "תהליכי פיתוח תוכנה מתקדמים"
+    },
+    {
+      "id": "algorithm_analysis",
+      "name": "ניתוח אלגוריתמים וסיבוכיות",
+      "credits": 5,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["data_structures_2", "discrete_math"],
+      "description": "ניתוח יעילות אלגוריתמים ותורת הסיבוכיות"
+    },
+    {
+      "id": "java_workshop",
+      "name": "סדנה ב-Java",
+      "credits": 2,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": ["advanced_programming"],
+      "notes": "דרוש ציון 65% ומעלה בתכנות מתקדם",
+      "description": "תכנות מונחה עצמים בשפת Java"
+    },
+    {
+      "id": "compilers",
+      "name": "קומפיילרים ומתרגמים",
+      "credits": 3.5,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["automata_formal_languages"],
+      "description": "עקרונות תכנון ובניית מהדרים"
+    },
+    {
+      "id": "advanced_networks",
+      "name": "רשתות מחשבים מתקדמות",
+      "credits": 3,
+      "semester": "א",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": ["intro_computer_networks"],
+      "description": "פרוטוקולים וטכנולוגיות רשת מתקדמות"
+    },
+    {
+      "id": "excellentim",
+      "name": "אקסלנטים",
+      "credits": 3,
+      "semester": "ב",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": [],
+      "corequisites": ["C++ למתקדמים"],
+      "notes": "C++ למתקדמים - אפשר לקחת במקביל לקורס הזה",
+      "description": "קורס מתקדם לתלמידים מצטיינים"
+    },
+    {
+      "id": "computability_complexity",
+      "name": "חישוביות ומורכבות",
+      "credits": 4,
+      "semester": "ב",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["discrete_math", "mathematical_logic", "automata_formal_languages", "algorithm_analysis"],
+      "description": "תורת החישוביות וסיבוכיות חישובית"
+    },
+    {
+      "id": "network_security_foundations",
+      "name": "יסודות לאבטחת רשתות",
+      "credits": 3,
+      "semester": "ב",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": ["intro_computer_networks", "intro_information_security"],
+      "description": "אבטחת מידע ברשתות תקשורת"
+    },
+    {
+      "id": "mini_project_databases",
+      "name": "מיני פרוייקט בבסיסי נתונים",
+      "credits": 1.5,
+      "semester": "ב",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["databases"],
+      "description": "פרויקט מעשי בבסיסי נתונים"
+    },
+    {
+      "id": "oop_design",
+      "name": "עיצוב ותכנות מונחי עצמים להנדסה",
+      "credits": 5,
+      "semester": "ב",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["mini_project_software_engineering", "data_structures_2"],
+      "description": "תכנות מונחה עצמים ודפוסי עיצוב"
+    },
+    {
+      "id": "programming_languages_principles",
+      "name": "עקרונות שפות תוכנה",
+      "credits": 3.5,
+      "semester": "ב",
+      "year": "ג",
+      "mandatory": true,
+      "prerequisites": ["functional_logic_programming", "data_structures_1", "advanced_programming"],
+      "description": "תורת שפות התכנות ועקרונות עיצובן"
+    },
+    {
+      "id": "career_skills",
+      "name": "מהשכלה לתעסוקה - מיומניות וכישורים",
+      "credits": 2,
+      "semester": "שנתי",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": [],
+      "notes": "קורס שנתי שנלקח לכל אורך השנה",
+      "description": "הכנה לשוק העבודה והשמה תעסוקתית"
+    },
+    {
+      "id": "cs_seminar",
+      "name": "סמינריון למדעי המחשב",
+      "credits": 1,
+      "semester": "שנתי",
+      "year": "ג",
+      "mandatory": false,
+      "prerequisites": [],
+      "notes": "הרישום נעשה באישור הוועדה. מיועד לתלמידים שחסר להם עד נ\"ז אחד לסיום התואר",
+      "description": "סמינריון מחקרי במדעי המחשב"
     }
-  ]
+  ],
+  "metadata": {
+    "lastUpdated": "14/09/23",
+    "department": "מדעי המחשב",
+    "totalCourses": 61,
+    "notes": [
+      "קורסי חובה מסומנים בשדה mandatory: true",
+      "prerequisites - קורסי קדם שחייבים להשלים לפני",
+      "corequisites - קורסים שניתן לקחת במקביל",
+      "requiredKnowledge - ידע נדרש אך לא בהכרח לקיחת הקורס",
+      "alternativePrerequisites - אפשרויות חלופיות לקורסי קדם"
+    ]
+  }
 }

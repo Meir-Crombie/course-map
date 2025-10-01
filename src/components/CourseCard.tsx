@@ -1,15 +1,19 @@
 "use client"
 import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen, User } from "lucide-react"
+import { ArrowLeft, BookOpen } from "lucide-react"
 import Link from "next/link"
 
 interface CourseCardProps {
   course: {
     id: string
     name: string
-    description?: string
-    coordinator: string
-    mandatoryAttendance: boolean
+    description: string
+    credits: number
+    semester: string
+    year: string
+    mandatory: boolean
+    prerequisites: string[]
+    notes?: string
   }
   index: number
 }
@@ -32,12 +36,12 @@ export default function CourseCard({ course, index }: CourseCardProps) {
           <div 
             className="px-2 py-1 rounded-full text-xs font-medium"
             style={{
-              backgroundColor: course.mandatoryAttendance ? "rgba(239, 68, 68, 0.1)" : "rgba(16, 185, 129, 0.1)",
-              color: course.mandatoryAttendance ? "var(--color-mandatory)" : "var(--color-optional)",
+              backgroundColor: course.mandatory ? "rgba(239, 68, 68, 0.1)" : "rgba(16, 185, 129, 0.1)",
+              color: course.mandatory ? "var(--color-mandatory)" : "var(--color-optional)",
               boxShadow: "var(--shadow-sm)"
             }}
           >
-            {course.mandatoryAttendance ? 'Mandatory' : 'Optional'}
+            {course.mandatory ? 'חובה' : 'בחירה'}
           </div>
         </div>
 
@@ -49,12 +53,15 @@ export default function CourseCard({ course, index }: CourseCardProps) {
             </h3>
             
             <p className="text-xs mb-2 leading-relaxed line-clamp-3" style={{color: "var(--color-text-secondary)"}}>
-              {course.description || 'Advanced course designed for students with basic background in the field. Includes lectures, practical exercises, and a final project.'}
+              {course.description}
             </p>
 
-            <div className="flex items-center text-xs mb-2 p-1.5 rounded-lg" style={{color: "var(--color-text-secondary)", backgroundColor: "rgba(56, 128, 245, 0.05)"}}>
-              <User className="w-3 h-3 ml-1" style={{color: "var(--color-primary)"}} />
-              <span>Coordinator: {course.coordinator}</span>
+            <div className="flex items-center justify-between text-xs mb-2 p-1.5 rounded-lg" style={{color: "var(--color-text-secondary)", backgroundColor: "rgba(56, 128, 245, 0.05)"}}>
+              <span className="font-semibold">{course.credits} נ״ז</span>
+              <span>•</span>
+              <span>סמסטר {course.semester}</span>
+              <span>•</span>
+              <span>שנה {course.year}</span>
             </div>
           </div>
 

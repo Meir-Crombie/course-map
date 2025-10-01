@@ -7,13 +7,21 @@ import Header from "../../../components/Header"
 import Footer from "../../../components/Footer"
 import CourseInfoCard from "../../../components/CourseInfoCard"
 import PrimaryButton from "../../../components/PrimaryButton"
+import coursesData from "../../../data/courses.json"
 
 type Course = {
   id: string
   name: string
-  syllabus: string
-  mandatoryAttendance: boolean
-  coordinator: string
+  credits: number
+  semester: string
+  year: string
+  mandatory: boolean
+  prerequisites: string[]
+  corequisites?: string[]
+  requiredKnowledge?: string[]
+  alternativePrerequisites?: string
+  notes?: string
+  description: string
 }
 
 export default function CourseDetailsPage() {
@@ -24,16 +32,9 @@ export default function CourseDetailsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/courses")
-      .then(res => res.json())
-      .then((data: Course[]) => {
-        const found = data.find(c => c.id === id)
-        setCourse(found || null)
-        setLoading(false)
-      })
-      .catch(() => {
-        setLoading(false)
-      })
+    const found = coursesData.courses.find(c => c.id === id)
+    setCourse(found || null)
+    setLoading(false)
   }, [id])
 
   if (loading) {

@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import Header from "../components/Header"
@@ -7,72 +7,27 @@ import Footer from "../components/Footer"
 import SearchBar from "../components/SearchBar"
 import CourseCard from "../components/CourseCard"
 import PrimaryButton from "../components/PrimaryButton"
+import coursesData from "../data/courses.json"
 
 type Course = {
   id: string
   name: string
-  syllabus: string
-  mandatoryAttendance: boolean
-  coordinator: string
-  description?: string
+  credits: number
+  semester: string
+  year: string
+  mandatory: boolean
+  prerequisites: string[]
+  corequisites?: string[]
+  requiredKnowledge?: string[]
+  alternativePrerequisites?: string
+  notes?: string
+  description: string
 }
-
-// Dummy courses data with descriptions
-const dummyCourses: Course[] = [
-  {
-    id: "intro-cs",
-    name: "מבוא למדעי המחשב",
-    syllabus: "/docs/intro-cs.pdf",
-    mandatoryAttendance: true,
-    coordinator: "ד״ר כהן",
-    description: "קורס יסוד המקנה הכרת יסודות התכנות, אלגוריתמים בסיסיים ומבני נתונים. כולל תרגול מעשי בשפת Python ופרויקט גמר."
-  },
-  {
-    id: "algorithms", 
-    name: "אלגוריתמים",
-    syllabus: "/docs/algorithms.pdf",
-    mandatoryAttendance: false,
-    coordinator: "פרופ׳ לוי",
-    description: "לימוד אלגוריתמים מתקדמים, ניתוח מורכבות זמן ומקום, אלגוריתמי גרפים וטכניקות אופטימיזציה. דורש ידע קודם בתכנות."
-  },
-  {
-    id: "data-structures",
-    name: "מבני נתונים",
-    syllabus: "/docs/data-structures.pdf", 
-    mandatoryAttendance: true,
-    coordinator: "ד״ר רוזנברג",
-    description: "מבני נתונים מתקדמים כמו עצים, גרפים, hash tables וקווי המתנה. דגש על יישום מעשי ובחירת המבנה המתאים לבעיה."
-  },
-  {
-    id: "databases",
-    name: "מסדי נתונים", 
-    syllabus: "/docs/databases.pdf",
-    mandatoryAttendance: false,
-    coordinator: "פרופ׳ אברהם",
-    description: "עקרונות מסדי נתונים יחסיים, SQL, עיצוב מסדי נתונים ונורמליזציה. כולל פרויקט בניית מערכת מסד נתונים מלאה."
-  },
-  {
-    id: "machine-learning",
-    name: "למידת מכונה",
-    syllabus: "/docs/ml.pdf",
-    mandatoryAttendance: true, 
-    coordinator: "ד״ר שמיר",
-    description: "אלגוריתמי למידה מפוקחת ולא מפוקחת, רשתות נוירונים ולמידה עמוקה. דורש ידע במתמטיקה ותכנות Python."
-  },
-  {
-    id: "web-development",
-    name: "פיתוח אתרי אינטרנט",
-    syllabus: "/docs/web-dev.pdf",
-    mandatoryAttendance: false,
-    coordinator: "מר דוידוב", 
-    description: "פיתוח full-stack עם HTML, CSS, JavaScript, React ו-Node.js. דגש על responsive design ו-UX. כולל פרויקט אתר אישי."
-  }
-]
 
 export default function Home() {
   const [searchResults, setSearchResults] = useState<Course[]>([])
-  const [courses, setCourses] = useState<Course[]>(dummyCourses)
-  const [displayedCourses, setDisplayedCourses] = useState<Course[]>(dummyCourses.slice(0, 6))
+  const courses = coursesData.courses
+  const displayedCourses = coursesData.courses.slice(0, 6)
   const router = useRouter()
 
   const handleSearch = (query: string) => {
@@ -83,8 +38,9 @@ export default function Home() {
     
     const filtered = courses.filter((course) =>
       course.name.toLowerCase().includes(query.toLowerCase()) ||
-      course.coordinator.toLowerCase().includes(query.toLowerCase()) ||
-      (course.description && course.description.toLowerCase().includes(query.toLowerCase()))
+      course.description.toLowerCase().includes(query.toLowerCase()) ||
+      course.semester.toLowerCase().includes(query.toLowerCase()) ||
+      course.year.toLowerCase().includes(query.toLowerCase())
     )
     setSearchResults(filtered)
   }

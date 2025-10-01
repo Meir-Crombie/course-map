@@ -1,14 +1,20 @@
 "use client"
 import { motion } from "framer-motion"
-import { ExternalLink, Calendar, User, CheckCircle, XCircle } from "lucide-react"
+import { Calendar, User, CheckCircle, XCircle } from "lucide-react"
 
 interface Course {
   id: string
   name: string
-  syllabus: string
-  mandatoryAttendance: boolean
-  coordinator: string
-  description?: string
+  credits: number
+  semester: string
+  year: string
+  mandatory: boolean
+  prerequisites: string[]
+  corequisites?: string[]
+  requiredKnowledge?: string[]
+  alternativePrerequisites?: string
+  notes?: string
+  description: string
 }
 
 interface CourseInfoCardProps {
@@ -36,38 +42,60 @@ export default function CourseInfoCard({ course }: CourseInfoCardProps) {
             <div className="flex items-center gap-3 p-3 bg-blue-50/50 rounded-lg">
               <User className="w-5 h-5 text-secondary" />
               <div>
-                <span className="text-sm text-gray-600">Coordinator</span>
-                <p className="font-medium text-gray-800">{course.coordinator}</p>
+                <span className="text-sm text-gray-600">נקודות זכות</span>
+                <p className="font-medium text-gray-800">{course.credits} נ״ז</p>
               </div>
             </div>
 
             <div className="flex items-center gap-3 p-3 bg-blue-50/50 rounded-lg">
-              {course.mandatoryAttendance ? (
+              <Calendar className="w-5 h-5 text-secondary" />
+              <div>
+                <span className="text-sm text-gray-600">סמסטר ושנה</span>
+                <p className="font-medium text-gray-800">סמסטר {course.semester}, שנה {course.year}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-3 bg-blue-50/50 rounded-lg">
+              {course.mandatory ? (
                 <XCircle className="w-5 h-5 text-red-500" />
               ) : (
                 <CheckCircle className="w-5 h-5 text-green-500" />
               )}
               <div>
-                <span className="text-sm text-gray-600">Attendance</span>
+                <span className="text-sm text-gray-600">סוג הקורס</span>
                 <p className="font-medium text-gray-800">
-                  {course.mandatoryAttendance ? "Mandatory" : "Optional"}
+                  {course.mandatory ? "חובה" : "בחירה"}
                 </p>
               </div>
             </div>
+
+            {course.prerequisites && course.prerequisites.length > 0 && (
+              <div className="flex items-start gap-3 p-3 bg-blue-50/50 rounded-lg">
+                <CheckCircle className="w-5 h-5 text-blue-500 mt-0.5" />
+                <div>
+                  <span className="text-sm text-gray-600">קורסי קדם</span>
+                  <p className="font-medium text-gray-800">{course.prerequisites.length} קורסים</p>
+                </div>
+              </div>
+            )}
+
+            {course.notes && (
+              <div className="p-3 bg-yellow-50/50 rounded-lg border border-yellow-200">
+                <span className="text-sm text-gray-600 block mb-1">הערות</span>
+                <p className="text-xs text-gray-700">{course.notes}</p>
+              </div>
+            )}
           </div>
 
           <div className="flex items-start justify-center md:justify-end">
-            <motion.a
-              href={course.syllabus}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              <ExternalLink className="w-5 h-5" />
-              View Syllabus
-            </motion.a>
+            <div className="w-full max-w-xs">
+              {course.alternativePrerequisites && (
+                <div className="mb-4 p-3 bg-blue-50/50 rounded-lg">
+                  <span className="text-sm text-gray-600 block mb-1">דרישות קדם חלופיות</span>
+                  <p className="text-xs text-gray-700">{course.alternativePrerequisites}</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
