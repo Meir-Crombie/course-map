@@ -28,8 +28,19 @@ export default function PrimaryButton({
   }
 
   const variantClasses = {
-    primary: "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl",
-    secondary: "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl"
+    primary: "text-white shadow-lg hover:shadow-xl",
+    secondary: "text-white shadow-lg hover:shadow-xl"
+  }
+
+  const variantStyles = {
+    primary: {
+      backgroundColor: "var(--color-primary)",
+      boxShadow: "var(--shadow-md)"
+    },
+    secondary: {
+      backgroundColor: "var(--color-text-secondary)", 
+      boxShadow: "var(--shadow-md)"
+    }
   }
 
   const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]}`
@@ -48,6 +59,7 @@ export default function PrimaryButton({
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={`${classes} group inline-flex`}
+        style={variantStyles[variant]}
       >
         {content}
       </motion.a>
@@ -60,6 +72,7 @@ export default function PrimaryButton({
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       className={`${classes} group`}
+      style={variantStyles[variant]}
     >
       {content}
     </motion.button>

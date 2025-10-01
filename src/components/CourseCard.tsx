@@ -23,18 +23,18 @@ export default function CourseCard({ course, index }: CourseCardProps) {
       whileHover={{ y: -8 }}
       className="group"
     >
-      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 h-full flex flex-col" style={{boxShadow: 'var(--shadow-md)', backgroundColor: 'var(--color-bg-card)', height: '100%'}}>
+      <div className="rounded-2xl p-6 transition-all duration-300 h-full flex flex-col" style={{boxShadow: "var(--shadow-card)", backgroundColor: "var(--color-bg-card)", height: "100%"}}>
         {/* Header */}
         <div className="flex items-start justify-between mb-3 flex-shrink-0">
-          <div className="p-2 bg-blue-100 rounded-xl group-hover:bg-blue-200 transition-colors">
-            <BookOpen className="w-5 h-5 text-blue-600" />
+          <div className="p-2 rounded-xl transition-colors" style={{backgroundColor: "rgba(56, 128, 245, 0.1)"}}>
+            <BookOpen className="w-5 h-5" style={{color: "var(--color-primary)"}} />
           </div>
           <div 
             className="px-2 py-1 rounded-full text-xs font-medium"
             style={{
-              backgroundColor: course.mandatoryAttendance ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)',
-              color: course.mandatoryAttendance ? '#EF4444' : 'var(--color-optional)',
-              boxShadow: 'var(--shadow-sm)'
+              backgroundColor: course.mandatoryAttendance ? "rgba(239, 68, 68, 0.1)" : "rgba(16, 185, 129, 0.1)",
+              color: course.mandatoryAttendance ? "var(--color-mandatory)" : "var(--color-optional)",
+              boxShadow: "var(--shadow-sm)"
             }}
           >
             {course.mandatoryAttendance ? 'Mandatory' : 'Optional'}
@@ -44,16 +44,16 @@ export default function CourseCard({ course, index }: CourseCardProps) {
         {/* Content */}
         <div className="flex-grow flex flex-col justify-between min-h-0">
           <div>
-            <h3 className="text-lg font-bold text-blue-800 mb-2 group-hover:text-blue-900 transition-colors line-clamp-2">
+            <h3 className="text-lg font-bold mb-2 transition-colors line-clamp-2" style={{color: "var(--color-text-primary)"}}>
               {course.name}
             </h3>
             
-            <p className="text-gray-700 text-xs mb-2 leading-relaxed line-clamp-3">
+            <p className="text-xs mb-2 leading-relaxed line-clamp-3" style={{color: "var(--color-text-secondary)"}}>
               {course.description || 'Advanced course designed for students with basic background in the field. Includes lectures, practical exercises, and a final project.'}
             </p>
 
-            <div className="flex items-center text-gray-600 text-xs mb-2 bg-blue-50 p-1.5 rounded-lg">
-              <User className="w-3 h-3 ml-1 text-blue-600" />
+            <div className="flex items-center text-xs mb-2 p-1.5 rounded-lg" style={{color: "var(--color-text-secondary)", backgroundColor: "rgba(56, 128, 245, 0.05)"}}>
+              <User className="w-3 h-3 ml-1" style={{color: "var(--color-primary)"}} />
               <span>Coordinator: {course.coordinator}</span>
             </div>
           </div>

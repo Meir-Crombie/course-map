@@ -93,25 +93,25 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-50">
+    <div className="min-h-screen" style={{backgroundColor: "var(--color-bg-main)"}}>
       {/* Navigation Bar */}
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/90 backdrop-blur-md sticky top-0 z-50" style={{boxShadow: 'var(--shadow-sm)'}}
+        className="sticky top-0 z-50" style={{backgroundColor: "var(--color-bg-card)", boxShadow: "var(--shadow-sm)"}}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
               <Link href="/" className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-primary">🗺️ Course Map</h1>
+                <h1 className="text-2xl font-bold" style={{color: "var(--color-primary)"}}>🗺️ Course Map</h1>
               </Link>
             </div>
             <div className="flex items-center space-x-8">
-              <Link href="/" className="text-blue-600 bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium" style={{color: 'var(--color-primary)', backgroundColor: 'rgba(59, 130, 246, 0.1)', boxShadow: 'var(--shadow-sm)'}}>
+              <Link href="/" className="px-4 py-2 rounded-lg text-sm font-medium" style={{color: "var(--color-primary)", backgroundColor: "rgba(56, 128, 245, 0.1)", boxShadow: "var(--shadow-sm)"}}>
                 בית
               </Link>
-              <Link href="/courses" className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
+              <Link href="/courses" className="px-4 py-2 rounded-lg text-sm font-medium transition-all nav-link" style={{color: "var(--color-text-secondary)"}}>
                 קורסים
               </Link>
             </div>
@@ -126,7 +126,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-6"
+            className="text-5xl md:text-6xl font-bold mb-6" style={{color: "var(--color-text-primary)"}}
           >
             Welcome to CourseMap
           </motion.h1>
@@ -135,7 +135,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl mb-12 max-w-3xl mx-auto leading-relaxed" style={{color: "var(--color-text-secondary)"}}
           >
             Discover all available courses, search by topic or instructor, and get quick access to important information about each course.
           </motion.p>
@@ -217,13 +217,13 @@ export default function Home() {
       )}
 
       {/* Features Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-50 to-sky-50 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{backgroundColor: "var(--color-bg-card)"}}>
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-12 text-center"
+            className="text-3xl font-bold mb-12 text-center" style={{color: "var(--color-text-primary)"}}
           >
             ✨ למה לבחור במפת הקורסים שלנו?
           </motion.h2>
@@ -252,11 +252,11 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 text-center" style={{boxShadow: 'var(--shadow-md)', backgroundColor: 'var(--color-bg-card)'}}
+                className="rounded-2xl p-8 transition-all duration-300 text-center" style={{boxShadow: "var(--shadow-card)", backgroundColor: "var(--color-bg-main)"}}
               >
-                <div className="text-4xl mb-4 bg-blue-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-blue-700 mb-4">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <div className="text-4xl mb-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto" style={{backgroundColor: "rgba(56, 128, 245, 0.1)"}}>{feature.icon}</div>
+                <h3 className="text-xl font-bold mb-4" style={{color: "var(--color-primary)"}}>{feature.title}</h3>
+                <p style={{color: "var(--color-text-secondary)"}}>{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -264,9 +264,9 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-8 px-4 sm:px-6 lg:px-8">
+      <footer className="text-white py-8 px-4 sm:px-6 lg:px-8" style={{backgroundColor: "var(--color-primary)"}}>
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-blue-100">© 2025 CourseMap. All rights reserved.</p>
+          <p className="text-white opacity-80">© 2025 CourseMap. All rights reserved.</p>
         </div>
       </footer>
     </div>
