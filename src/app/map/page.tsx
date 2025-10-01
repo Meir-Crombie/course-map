@@ -1,42 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Link from "next/link"
+import Header from "../../components/Header"
+import Footer from "../../components/Footer"
 import { MapPin, Construction } from "lucide-react"
 
 export default function MapPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-sky-50">
-      {/* Navigation Bar */}
-      <motion.nav 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white/90 backdrop-blur-md sticky top-0 z-50" style={{boxShadow: 'var(--shadow-sm)'}}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-primary">CourseMap</h1>
-              </Link>
-            </div>
-            <div className="flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
-                Home
-              </Link>
-              <Link href="/courses" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
-                Courses
-              </Link>
-              <Link href="/news" className="text-gray-700 hover:text-primary hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-all">
-                News
-              </Link>
-              <Link href="/map" className="text-primary bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium" style={{color: 'var(--color-primary)', backgroundColor: 'rgba(59, 130, 246, 0.1)', boxShadow: 'var(--shadow-sm)'}}>
-                Map
-              </Link>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
+    <div className="min-h-screen flex flex-col" style={{backgroundColor: "var(--color-bg-main)"}}>
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -105,14 +77,7 @@ export default function MapPage() {
         </motion.div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-8 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center text-blue-100">
-            <p>© 2025 CourseMap. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

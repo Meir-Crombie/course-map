@@ -1,8 +1,9 @@
 "use client"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
 import SearchBar from "../components/SearchBar"
 import CourseCard from "../components/CourseCard"
 import PrimaryButton from "../components/PrimaryButton"
@@ -93,31 +94,8 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen" style={{backgroundColor: "var(--color-bg-main)"}}>
-      {/* Navigation Bar */}
-      <motion.nav 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="sticky top-0 z-50" style={{backgroundColor: "var(--color-bg-card)", boxShadow: "var(--shadow-sm)"}}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="flex-shrink-0">
-                <h1 className="text-2xl font-bold" style={{color: "var(--color-primary)"}}>🗺️ Course Map</h1>
-              </Link>
-            </div>
-            <div className="flex items-center space-x-8">
-              <Link href="/" className="px-4 py-2 rounded-lg text-sm font-medium" style={{color: "var(--color-primary)", backgroundColor: "rgba(56, 128, 245, 0.1)", boxShadow: "var(--shadow-sm)"}}>
-                בית
-              </Link>
-              <Link href="/courses" className="px-4 py-2 rounded-lg text-sm font-medium transition-all nav-link" style={{color: "var(--color-text-secondary)"}}>
-                קורסים
-              </Link>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
+    <div className="min-h-screen flex flex-col" style={{backgroundColor: "var(--color-bg-main)"}}>
+      <Header />
 
       {/* Hero Section */}
       <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8">
@@ -263,12 +241,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="text-white py-8 px-4 sm:px-6 lg:px-8" style={{backgroundColor: "var(--color-primary)"}}>
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-white opacity-80">© 2025 CourseMap. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
