@@ -23,11 +23,15 @@ export default function CourseCard({ course, index }: CourseCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8 }}
-      className="group"
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      whileHover={{ 
+        y: -8, 
+        scale: 1.02,
+        boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)"
+      }}
+      className="group h-full"
     >
-      <div className="rounded-2xl p-6 transition-all duration-300 h-full flex flex-col" style={{boxShadow: "var(--shadow-card)", backgroundColor: "var(--color-bg-card)", height: "100%"}}>
+      <div className="rounded-2xl p-6 transition-all duration-300 h-full flex flex-col" style={{boxShadow: "var(--shadow-card)", backgroundColor: "var(--color-bg-card)"}}>
         {/* Header */}
         <div className="flex items-start justify-between mb-3 flex-shrink-0">
           <div className="p-2 rounded-xl transition-colors" style={{backgroundColor: "rgba(56, 128, 245, 0.1)"}}>

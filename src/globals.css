@@ -133,23 +133,38 @@ h1, h2, h3 {
 
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
   align-items: stretch;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 .course-card {
   display: flex;
   flex-direction: column;
-  height: 320px !important;
-  width: 100% !important;
+  min-height: 320px;
+  width: 100%;
   overflow: hidden;
 }
 
 .course-card > div {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* עיצוב כפתור מודרני */

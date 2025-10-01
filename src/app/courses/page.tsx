@@ -14,15 +14,21 @@ export default function CoursesPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-16 flex-1">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl font-bold text-center mb-12" style={{color: "var(--color-text-primary)"}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          כל הקורסים
-        </motion.h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{color: "var(--color-text-primary)"}}>
+            כל הקורסים
+          </h1>
+          <p className="text-lg" style={{color: "var(--color-text-secondary)"}}>
+            {courses.length} קורסים זמינים
+          </p>
+        </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
           {courses.map((course, index) => (
             <CourseCard key={course.id} course={course} index={index} />
           ))}
