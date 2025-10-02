@@ -20,70 +20,114 @@ interface CourseCardProps {
 
 export default function CourseCard({ course, index }: CourseCardProps) {
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
       whileHover={{ 
-        y: -8, 
-        scale: 1.02,
-        boxShadow: "0 20px 40px rgba(0, 0, 0, 0.15)"
+        y: -8,
+        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.15)"
       }}
-      className="group h-full"
+      className="h-full"
     >
-      <div className="rounded-2xl p-6 transition-all duration-300 h-full flex flex-col" style={{boxShadow: "var(--shadow-card)", backgroundColor: "var(--color-bg-card)"}}>
-        {/* Header */}
-        <div className="flex items-start justify-between mb-3 flex-shrink-0">
-          <div className="p-2 rounded-xl transition-colors" style={{backgroundColor: "rgba(56, 128, 245, 0.1)"}}>
-            <BookOpen className="w-5 h-5" style={{color: "var(--color-primary)"}} />
+      <div 
+        className="rounded-2xl p-6 transition-all duration-300 flex flex-col h-full"
+        style={{
+          background: "white",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+          minHeight: "400px",
+          maxHeight: "400px"
+        }}
+      >
+        {/* Status Badge */}
+        <div className="flex justify-between items-start mb-4">
+          <div className="p-2.5 rounded-xl bg-blue-50">
+            <BookOpen className="w-5 h-5 text-blue-600" />
           </div>
-          <div 
-            className="px-2 py-1 rounded-full text-xs font-medium"
+          <span 
+            className="px-4 py-1.5 rounded-full text-xs font-bold"
             style={{
-              backgroundColor: course.mandatory ? "rgba(239, 68, 68, 0.1)" : "rgba(16, 185, 129, 0.1)",
-              color: course.mandatory ? "var(--color-mandatory)" : "var(--color-optional)",
-              boxShadow: "var(--shadow-sm)"
+              backgroundColor: course.mandatory ? "#3B82F6" : "#10B981",
+              color: "white",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)"
             }}
           >
-            {course.mandatory ? 'חובה' : 'בחירה'}
-          </div>
+            {course.mandatory ? 'חובה' : 'רשות'}
+          </span>
         </div>
 
-        {/* Content */}
-        <div className="flex-grow flex flex-col justify-between min-h-0">
-          <div>
-            <h3 className="text-lg font-bold mb-2 transition-colors line-clamp-2" style={{color: "var(--color-text-primary)"}}>
-              {course.name}
-            </h3>
-            
-            <p className="text-xs mb-2 leading-relaxed line-clamp-3" style={{color: "var(--color-text-secondary)"}}>
-              {course.description}
-            </p>
+        {/* Course Title */}
+        <h3 
+          className="text-xl font-bold mb-3 line-clamp-2"
+          style={{
+            color: "#1F2937",
+            lineHeight: "1.3"
+          }}
+        >
+          {course.name}
+        </h3>
 
-            <div className="flex items-center justify-between text-xs mb-2 p-1.5 rounded-lg" style={{color: "var(--color-text-secondary)", backgroundColor: "rgba(56, 128, 245, 0.05)"}}>
-              <span className="font-semibold">{course.credits} נ״ז</span>
-              <span>•</span>
-              <span>סמסטר {course.semester}</span>
-              <span>•</span>
-              <span>שנה {course.year}</span>
+        {/* Metadata */}
+        <div className="mb-3 space-y-2">
+          <div 
+            className="flex items-center justify-between px-3 py-2 rounded-lg"
+            style={{ backgroundColor: "#F0F4F8" }}
+          >
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-semibold text-gray-700">נ״ז:</span>
+              <span className="font-bold text-blue-600">{course.credits}</span>
+            </div>
+            <div className="h-4 w-px bg-gray-300" />
+            <div className="text-sm text-gray-600">
+              {course.mandatory ? 'חובה' : 'רשות'}
             </div>
           </div>
-
-          {/* Action Button */}
-          <div className="flex-shrink-0 mt-2">
-            <Link href={`/courses/${course.id}`}>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="modern-button w-full text-white font-semibold py-2.5 px-4 transition-all duration-300 flex items-center justify-center text-sm"
-              >
-                <span className="relative z-10">View Details</span>
-                <ArrowLeft className="w-3 h-3 mr-1 group-hover:translate-x-1 transition-transform relative z-10" />
-              </motion.button>
-            </Link>
+          
+          <div 
+            className="flex items-center justify-between px-3 py-2 rounded-lg"
+            style={{ backgroundColor: "#F0F4F8" }}
+          >
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-semibold text-gray-700">סמסטר:</span>
+              <span className="text-gray-900">{course.semester}</span>
+            </div>
+            <div className="h-4 w-px bg-gray-300" />
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-semibold text-gray-700">שנה:</span>
+              <span className="text-gray-900">{course.year}</span>
+            </div>
           </div>
         </div>
+
+        {/* Description */}
+        <p 
+          className="text-sm mb-4 line-clamp-3 flex-grow"
+          style={{
+            color: "#6B7280",
+            lineHeight: "1.6"
+          }}
+        >
+          {course.description}
+        </p>
+
+        {/* Button */}
+        <div className="mt-auto">
+          <Link href={`/courses/${course.id}`}>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center text-sm group"
+              style={{
+                background: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
+                boxShadow: "0 4px 12px rgba(59, 130, 246, 0.3)"
+              }}
+            >
+              <span>פרטים נוספים</span>
+              <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </Link>
+        </div>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
