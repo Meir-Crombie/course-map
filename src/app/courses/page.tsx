@@ -28,7 +28,8 @@ export default function CoursesPage() {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
+        {/* ✅ התיקון העיקרי: lg:grid-cols-3 במקום 4 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {courses.map((course, index) => (
             <CourseCard key={course.id} course={course} index={index} />
           ))}
