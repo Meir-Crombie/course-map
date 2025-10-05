@@ -1,123 +1,104 @@
-"use client"
-import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen, Tag, Calendar, Clock } from "lucide-react" 
-import Link from "next/link"
+import React from 'react';
+import { BookOpen, Calendar, Award, Network, Badge } from "lucide-react";
+import { motion } from "framer-motion";
 
-interface CourseCardProps {
-  course: {
-    id: string
-    name: string
-    description: string
-    credits: number
-    semester: string
-    year: string
-    mandatory: boolean
-    prerequisites: string[]
-    notes?: string
-  }
-  index: number
-}
+type Course = {
+  name: string;
+  name_english: string;
+  type: string;
+  semester: number;
+  credits: number;
+  year: number;
+  prerequisites?: Array<any>;
+  code: string;
+};
 
-export default function CourseCard({ course, index }: CourseCardProps) {
-  const isMandatory = course.mandatory
-  
-  // הגדרות סגנון מתוך משתני ה-CSS
-  const statusColor = isMandatory 
-    ? "var(--color-mandatory)" 
-    : "var(--color-optional)"  
-  
-  const statusBg = isMandatory 
-    ? "rgba(239, 68, 68, 0.1)" 
-    : "rgba(16, 185, 129, 0.1)" 
+type CourseCardProps = {
+  course: Course;
+  onClick?: () => void;
+};
 
-  const mainIconColor = "text-blue-600" // נשאר כקלאס ברירת מחדל של טיילווינד
+export default function CourseCard({ course, onClick }: CourseCardProps) {
+  const getYearLabel = (year: number) => {
+    const labels: Record<number, string> = { 1: "שנה א'", 2: "שנה ב'", 3: "שנה ג'", 4: "שנה ד'" };
+    return labels[year] || `שנה ${year}`;
+  };
+
+  const getTypeColor = (type: string) => {
+    return type === "חובה" 
+      ? "bg-gradient-to-r from-pink-200 to-purple-200 text-purple-800 border-purple-200" 
+      : "bg-gradient-to-r from-blue-200 to-teal-200 text-teal-800 border-teal-200";
+  };
 
   return (
-    <Link 
-      href={`/courses/${course.id}`} 
-      className="h-full block group course-card"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -4, scale: 1.02 }}
+      onClick={onClick}
+      className="cursor-pointer p-5 rounded-[20px] transition-all duration-300 bg-white/80 backdrop-blur-sm"
+      style={{
+        boxShadow: '6px 6px 16px rgba(0,0,0,0.08), -6px -6px 16px rgba(255,255,255,0.9), inset 2px 2px 6px rgba(255,255,255,0.5)'
+      }}
     >
-      <motion.article
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: index * 0.07, ease: "easeOut" }}
-        whileHover={{
-          y: -6,
-          boxShadow: "var(--shadow-card)", 
-        }}
-        className="bg-white rounded-3xl p-7 transition-all duration-300 flex flex-col border border-gray-100 hover:border-gray-200"
-        style={{
-          minHeight: "100%", 
-          maxHeight: "100%",
-          boxShadow: "var(--shadow-sm)", 
-        }}
-        dir="rtl" // הגדרה גורפת לכיווניות מימין לשמאל
-      >
-        {/* TOP SECTION: Icon, Badge, and Title */}
-        <div className="flex justify-between items-start mb-4">
-          {/* Main Icon - שימוש במשתנה primary מה-CSS */}
-          <div className="p-3 rounded-xl" style={{ backgroundColor: 'rgba(56, 128, 245, 0.1)' }}>
-            <BookOpen className="w-5 h-5" style={{ color: 'var(--color-primary)' }} />
-          </div>
-          
-          {/* Badge (חובה/רשות) */}
-          <span
-            className={`px-3 py-1 text-xs font-semibold rounded-full`}
-            style={{ backgroundColor: statusBg, color: statusColor }}
-          >
-            {isMandatory ? "חובה" : "רשות"}
-          </span>
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-gray-800 mb-1 leading-tight">
+            {course.name}
+          </h3>
+          <p className="text-xs text-gray-500">{course.name_english}</p>
         </div>
+        <div className="w-10 h-10 rounded-2xl flex items-center justify-center ml-2 flex-shrink-0"
+             style={{
+               background: 'linear-gradient(145deg, #A8E6CF, #B3E5FC)',
+               boxShadow: '3px 3px 8px rgba(0,0,0,0.08), -3px -3px 8px rgba(255,255,255,0.8)'
+             }}>
+          <BookOpen className="w-5 h-5 text-white" />
+        </div>
+      </div>
 
-        {/* Title and Description */}
-        <h3 className="text-2xl font-extrabold mb-1 leading-tight line-clamp-2" style={{ color: 'var(--color-text-primary)' }}>
-          {course.name}
-        </h3>
-        
-        <p className="text-sm line-clamp-2 mb-5 leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-          {course.description || "תיאור קצר לא זמין. אנא בדוק את פרטי הקורס המלאים למידע נוסף."}
-        </p>
+      <div className="flex flex-wrap gap-2 mb-3">
+        <Badge 
+          className={`${getTypeColor(course.type)} rounded-full px-2.5 py-0.5 border text-xs font-medium`}
+          style={{
+            boxShadow: '2px 2px 6px rgba(0,0,0,0.05), inset 1px 1px 3px rgba(255,255,255,0.5)'
+          }}
+        >
+          {course.type}
+        </Badge>
+        <Badge 
+          className="rounded-full px-2.5 py-0.5 bg-white/70 border-gray-200 text-xs"
+          style={{
+            boxShadow: '2px 2px 6px rgba(0,0,0,0.05), inset 1px 1px 3px rgba(255,255,255,0.5)'
+          }}
+        >
+          <Calendar className="w-3 h-3 ml-1" />
+          סמסטר {course.semester}
+        </Badge>
+      </div>
 
-        {/* INFO BLOCKS: Semester and Year (שומרים על סידור Flexbox נקי) */}
-        <div className="mb-5 mt-2 space-y-2">
-          {/* סמסטר */}
-          <div className="flex items-center text-sm px-3 py-1">
-            <Clock className="w-4 h-4 ml-2 text-amber-500" /> 
-            <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>סמסטר:</span>
-            <span className="mr-auto font-bold text-left" style={{ color: 'var(--color-text-primary)' }}>{course.semester}</span> 
-          </div>
+      <div className="flex items-center justify-between text-xs">
+        <div className="flex items-center gap-1.5 text-gray-600">
+          <Award className="w-3.5 h-3.5" />
+          <span className="font-medium">{course.credits} נ"ז</span>
+        </div>
+        <div className="flex items-center gap-1.5 text-gray-600">
+          <span>{getYearLabel(course.year)}</span>
+        </div>
+      </div>
 
-          {/* שנה */}
-          <div className="flex items-center text-sm px-3 py-1">
-            <Calendar className="w-4 h-4 ml-2 text-indigo-500" />
-            <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>שנה:</span>
-            <span className="mr-auto font-bold text-left" style={{ color: 'var(--color-text-primary)' }}>{course.year}</span>
+      {course.prerequisites && course.prerequisites.length > 0 && (
+        <div className="mt-3 pt-3 border-t border-gray-200/50">
+          <div className="flex items-center gap-2 text-xs text-gray-500">
+            <Network className="w-3 h-3" />
+            <span>{course.prerequisites.length} דרישות קדם</span>
           </div>
         </div>
+      )}
 
-        {/* Technical Data (נ״ז + קוד) - סידור סופי עם קלאסים גלובליים */}
-        <div className="grid grid-cols-2 gap-3 mb-5 pt-4 mt-auto border-t" style={{ borderColor: 'var(--color-bg-main)' }}>
-          
-          {/* נ״ז */}
-          <div className="flex items-center justify-start text-xs px-3 py-2 rounded-xl" style={{ backgroundColor: 'var(--color-bg-main)' }}>
-            <Tag className={`w-4 h-4 ml-2`} style={{ color: statusColor }} />
-            <span className="data-label" style={{ color: 'var(--color-text-secondary)' }}>נ״ז:</span>
-            <span className="data-value" style={{ color: 'var(--color-text-primary)' }}>{course.credits}</span>
-          </div>
-
-          {/* קוד קורס */}
-          <div className="flex items-center justify-start text-xs px-3 py-2 rounded-xl" style={{ backgroundColor: 'var(--color-bg-main)' }}>
-            <span className="data-label" style={{ color: 'var(--color-text-secondary)' }}>קוד:</span>
-            <span className="data-value font-mono" style={{ color: 'var(--color-text-primary)' }}>{course.id}</span>
-          </div>
-        </div>
-        
-        {/* Footer Link (חץ אלגנטי) */}
-        <div className="mt-2 flex items-center justify-between font-bold transition-colors group-hover:opacity-90" style={{ color: 'var(--color-primary)' }}>
-          <span>פרטים נוספים</span>
-          <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" /> 
-        </div>
-      </motion.article>
-    </Link>
-  )
+      <p className="text-xs text-gray-500 mt-2">
+        {course.code}
+      </p>
+    </motion.div>
+  );
 }
