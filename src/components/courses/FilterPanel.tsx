@@ -1,7 +1,9 @@
-import React from "react";
-import { Filter, X } from "lucide-react";
+"use client"
 
-interface FilterPanelProps {
+import React from 'react';
+import { X, Filter } from "lucide-react";
+
+type FilterPanelProps = {
   filters: {
     semester: string | null;
     year: string | null;
@@ -9,102 +11,124 @@ interface FilterPanelProps {
   };
   onFilterChange: (key: string, value: string | null) => void;
   onClearFilters: () => void;
-}
+};
 
 export default function FilterPanel({ filters, onFilterChange, onClearFilters }: FilterPanelProps) {
-  const hasActiveFilters = filters.semester || filters.year || filters.type;
+  const semesters = ["א", "ב", "קיץ"];
+  const years = ["א", "ב", "ג", "ד"];
+  const types = ["חובה", "בחירה"];
+
+  const activeFiltersCount = 
+    (filters.semester ? 1 : 0) + 
+    (filters.year ? 1 : 0) + 
+    (filters.type ? 1 : 0);
 
   return (
-    <div
-      className="p-5 md:p-6 rounded-[20px] sticky top-24 bg-white/80 backdrop-blur-sm"
+    <div 
+      className="p-5 rounded-[20px] bg-white/80 backdrop-blur-sm"
       style={{
-        boxShadow: '6px 6px 16px rgba(0,0,0,0.08), -6px -6px 16px rgba(255,255,255,0.9)'
+        boxShadow: '6px 6px 16px rgba(0,0,0,0.08), -6px -6px 16px rgba(255,255,255,0.9), inset 2px 2px 6px rgba(255,255,255,0.5)'
       }}
     >
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base md:text-lg font-bold text-gray-800 flex items-center gap-2">
-          <Filter className="w-4 h-4 md:w-5 md:h-5" />
-          סינון
-        </h2>
-        {hasActiveFilters && (
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4 text-purple-600" />
+          <h3 className="text-base font-bold text-gray-800">סינון קורסים</h3>
+          {activeFiltersCount > 0 && (
+            <span 
+              className="rounded-full text-xs px-2 py-0.5"
+              style={{
+                background: 'linear-gradient(145deg, #E0BBE4, #B3E5FC)',
+                color: 'white',
+                boxShadow: '2px 2px 6px rgba(0,0,0,0.1)'
+              }}
+            >
+              {activeFiltersCount}
+            </span>
+          )}
+        </div>
+        {activeFiltersCount > 0 && (
           <button
             onClick={onClearFilters}
-            className="text-xs md:text-sm text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1"
+            className="text-gray-500 hover:text-gray-700 rounded-xl text-xs h-8 px-3 bg-transparent hover:bg-gray-100 transition-colors flex items-center"
           >
-            <X className="w-3 h-3 md:w-4 md:h-4" />
+            <X className="w-3 h-3 ml-1" />
             נקה
           </button>
         )}
       </div>
 
-      {/* Type Filter */}
-      <div className="mb-5">
-        <h3 className="text-xs md:text-sm font-semibold text-gray-700 mb-2">סוג קורס</h3>
-        <div className="space-y-2">
-          {[
-            { label: "חובה", value: "mandatory" },
-            { label: "בחירה", value: "optional" },
-          ].map(({ label, value }) => (
-            <button
-              key={value}
-              onClick={() => onFilterChange("type", filters.type === value ? null : value)}
-              className={`w-full px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all ${
-                filters.type === value
-                  ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-md"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+      <div className="space-y-5">
+        <div>
+          <label className="text-xs font-medium text-gray-600 mb-2 block">סמסטר</label>
+          <div className="flex flex-wrap gap-2">
+            {semesters.map((semester) => (
+              <button
+                key={semester}
+                onClick={() => onFilterChange('semester', filters.semester === semester ? null : semester)}
+                className="rounded-2xl text-xs h-9 px-3 transition-all border"
+                style={filters.semester === semester ? {
+                  background: 'linear-gradient(145deg, #E0BBE4, #B3E5FC)',
+                  color: 'white',
+                  boxShadow: '3px 3px 8px rgba(0,0,0,0.1), inset 1px 1px 3px rgba(255,255,255,0.3)',
+                  border: 'none'
+                } : {
+                  backgroundColor: 'white',
+                  borderColor: '#e5e7eb'
+                }}
+              >
+                סמסטר {semester}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Semester Filter */}
-      <div className="mb-5">
-        <h3 className="text-xs md:text-sm font-semibold text-gray-700 mb-2">סמסטר</h3>
-        <div className="space-y-2">
-          {[
-            { label: "סמסטר א'", value: "א" },
-            { label: "סמסטר ב'", value: "ב" },
-            { label: "שנתי", value: "שנתי" },
-          ].map(({ label, value }) => (
-            <button
-              key={value}
-              onClick={() => onFilterChange("semester", filters.semester === value ? null : value)}
-              className={`w-full px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all ${
-                filters.semester === value
-                  ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-md"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+        <div>
+          <label className="text-xs font-medium text-gray-600 mb-2 block">שנה</label>
+          <div className="flex flex-wrap gap-2">
+            {years.map((year) => (
+              <button
+                key={year}
+                onClick={() => onFilterChange('year', filters.year === year ? null : year)}
+                className="rounded-2xl text-xs h-9 px-3 transition-all border"
+                style={filters.year === year ? {
+                  background: 'linear-gradient(145deg, #A8E6CF, #B3E5FC)',
+                  color: 'white',
+                  boxShadow: '3px 3px 8px rgba(0,0,0,0.1), inset 1px 1px 3px rgba(255,255,255,0.3)',
+                  border: 'none'
+                } : {
+                  backgroundColor: 'white',
+                  borderColor: '#e5e7eb'
+                }}
+              >
+                שנה {year === "א" ? "א׳" : year === "ב" ? "ב׳" : year === "ג" ? "ג׳" : "ד׳"}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Year Filter */}
-      <div>
-        <h3 className="text-xs md:text-sm font-semibold text-gray-700 mb-2">שנה</h3>
-        <div className="space-y-2">
-          {[
-            { label: "שנה א'", value: "א" },
-            { label: "שנה ב'", value: "ב" },
-            { label: "שנה ג'", value: "ג" },
-          ].map(({ label, value }) => (
-            <button
-              key={value}
-              onClick={() => onFilterChange("year", filters.year === value ? null : value)}
-              className={`w-full px-3 py-2 rounded-xl text-xs md:text-sm font-medium transition-all ${
-                filters.year === value
-                  ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-md"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+        <div>
+          <label className="text-xs font-medium text-gray-600 mb-2 block">סוג קורס</label>
+          <div className="flex flex-wrap gap-2">
+            {types.map((type) => (
+              <button
+                key={type}
+                onClick={() => onFilterChange('type', filters.type === type ? null : type)}
+                className="rounded-2xl text-xs h-9 px-3 transition-all border"
+                style={filters.type === type ? {
+                  background: 'linear-gradient(145deg, #FFB6C1, #E0BBE4)',
+                  color: 'white',
+                  boxShadow: '3px 3px 8px rgba(0,0,0,0.1), inset 1px 1px 3px rgba(255,255,255,0.3)',
+                  border: 'none'
+                } : {
+                  backgroundColor: 'white',
+                  borderColor: '#e5e7eb'
+                }}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

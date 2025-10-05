@@ -1,8 +1,10 @@
-import React from "react";
-import { X, BookOpen, Calendar, Award, Network } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+"use client"
 
-interface CourseType {
+import React from 'react';
+import { BookOpen, Calendar, Award, Network, List, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+
+interface CourseData {
   id: string;
   name: string;
   credits: number;
@@ -14,7 +16,7 @@ interface CourseType {
 }
 
 interface CourseModalProps {
-  course: CourseType | null;
+  course: CourseData | null;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -22,106 +24,135 @@ interface CourseModalProps {
 export default function CourseModal({ course, isOpen, onClose }: CourseModalProps) {
   if (!course) return null;
 
+  const getYearLabel = (year: string): string => {
+    const labels: { [key: string]: string } = { "א": "שנה א׳", "ב": "שנה ב׳", "ג": "שנה ג׳", "ד": "שנה ד׳" };
+    return labels[year] || `שנה ${year}`;
+  };
+
+  const getTypeColor = (mandatory: boolean): string => {
+    return mandatory 
+      ? "bg-gradient-to-r from-pink-200 to-purple-200 text-purple-800" 
+      : "bg-gradient-to-r from-blue-200 to-teal-200 text-teal-800";
+  };
+
+  const getTypeLabel = (mandatory: boolean): string => {
+    return mandatory ? "חובה" : "בחירה";
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50"
           />
-
-          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-[24px] p-8 z-50"
-            style={{
-              boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
-            }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
           >
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 left-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+            <div 
+              className="rounded-[24px] max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6"
+              style={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(20px)',
+                boxShadow: '10px 10px 30px rgba(0,0,0,0.1), -10px -10px 30px rgba(255,255,255,0.9)'
+              }}
             >
-              <X className="w-6 h-6 text-gray-600" />
-            </button>
-
-            {/* Course Header */}
-            <div className="mb-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{
-                    background: 'linear-gradient(145deg, #A8E6CF, #B3E5FC)'
-                  }}
-                >
-                  <BookOpen className="w-8 h-8 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 leading-tight">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-800 mb-2">
                     {course.name}
                   </h2>
-                  <p className="text-sm text-gray-500">קוד: {course.id}</p>
+                  <p className="text-gray-500">{course.id}</p>
                 </div>
-              </div>
-
-              {/* Badges */}
-              <div className="flex flex-wrap gap-2">
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    course.mandatory
-                      ? "bg-gradient-to-r from-pink-200 to-purple-200 text-purple-800"
-                      : "bg-gradient-to-r from-blue-200 to-teal-200 text-blue-800"
-                  }`}
+                <button
+                  onClick={onClose}
+                  className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors"
                 >
-                  {course.mandatory ? "חובה" : "בחירה"}
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 flex items-center gap-1">
-                  <Award className="w-3 h-3" />
-                  {course.credits} נ״ז
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 flex items-center gap-1">
-                  <Calendar className="w-3 h-3" />
-                  סמסטר {course.semester}
-                </span>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
-                  שנה {course.year === "א" ? "א'" : course.year === "ב" ? "ב'" : "ג'"}
-                </span>
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
               </div>
-            </div>
 
-            {/* Description */}
-            <div className="mb-6">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">תיאור הקורס</h3>
-              <p className="text-gray-600 leading-relaxed">{course.description}</p>
-            </div>
-
-            {/* Prerequisites */}
-            {course.prerequisites && course.prerequisites.length > 0 && (
-              <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
-                  <Network className="w-5 h-5" />
-                  קדמים
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {course.prerequisites.map((prereq: string) => (
-                    <span
-                      key={prereq}
-                      className="px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700"
-                    >
-                      {prereq}
-                    </span>
-                  ))}
+              <div className="space-y-6">
+                <div className="flex flex-wrap gap-3">
+                  <span className={`${getTypeColor(course.mandatory)} rounded-full px-4 py-2 text-sm font-medium border-none`}>
+                    {getTypeLabel(course.mandatory)}
+                  </span>
+                  <span className="rounded-full px-4 py-2 bg-white/70 border border-gray-200">
+                    <Calendar className="w-4 h-4 ml-1 inline" />
+                    סמסטר {course.semester}
+                  </span>
+                  <span className="rounded-full px-4 py-2 bg-white/70 border border-gray-200">
+                    <Award className="w-4 h-4 ml-1 inline" />
+                    {course.credits} נ&quot;ז
+                  </span>
+                  <span className="rounded-full px-4 py-2 bg-white/70 border border-gray-200">
+                    {getYearLabel(course.year)}
+                  </span>
                 </div>
+
+                <div 
+                  className="p-4 rounded-[18px]"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.6)',
+                    boxShadow: 'inset 2px 2px 8px rgba(0,0,0,0.05), inset -2px -2px 8px rgba(255,255,255,0.8)'
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <BookOpen className="w-4 h-4 text-purple-600" />
+                    <h4 className="font-semibold text-gray-800">קוד קורס</h4>
+                  </div>
+                  <p className="text-gray-700">{course.id}</p>
+                </div>
+
+                {course.description && (
+                  <div 
+                    className="p-4 rounded-[18px]"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.6)',
+                      boxShadow: 'inset 2px 2px 8px rgba(0,0,0,0.05), inset -2px -2px 8px rgba(255,255,255,0.8)'
+                    }}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <List className="w-4 h-4 text-blue-600" />
+                      <h4 className="font-semibold text-gray-800">תיאור הקורס</h4>
+                    </div>
+                    <p className="text-gray-700 leading-relaxed">{course.description}</p>
+                  </div>
+                )}
+
+                {course.prerequisites && course.prerequisites.length > 0 && (
+                  <div 
+                    className="p-4 rounded-[18px]"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.6)',
+                      boxShadow: 'inset 2px 2px 8px rgba(0,0,0,0.05), inset -2px -2px 8px rgba(255,255,255,0.8)'
+                    }}
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <Network className="w-4 h-4 text-orange-600" />
+                      <h4 className="font-semibold text-gray-800">דרישות קדם</h4>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {course.prerequisites.map((prereq: string, index: number) => (
+                        <span 
+                          key={index}
+                          className="rounded-full px-3 py-1 bg-orange-50 border-orange-200 text-orange-700 border text-sm"
+                        >
+                          {prereq}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </motion.div>
         </>
       )}
