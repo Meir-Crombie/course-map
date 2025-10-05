@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { BookOpen, Calendar, Award, Network } from "lucide-react";
+import { BookOpen, Calendar, Award, Network, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface CourseData {
@@ -26,12 +26,6 @@ export default function CourseCard({ course, onClick }: CourseCardProps) {
     return labels[year] || `שנה ${year}`;
   };
 
-  const getTypeColor = (mandatory: boolean): string => {
-    return mandatory 
-      ? "bg-gradient-to-r from-pink-200 to-purple-200 text-purple-800 border-purple-200" 
-      : "bg-gradient-to-r from-blue-200 to-teal-200 text-teal-800 border-teal-200";
-  };
-
   const getTypeLabel = (mandatory: boolean): string => {
     return mandatory ? "חובה" : "בחירה";
   };
@@ -40,63 +34,77 @@ export default function CourseCard({ course, onClick }: CourseCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4, scale: 1.02 }}
+      whileHover={{ y: -6, scale: 1.02 }}
       onClick={() => onClick(course)}
-      className="cursor-pointer p-5 rounded-[20px] transition-all duration-300 bg-white/80 backdrop-blur-sm"
+      className="cursor-pointer p-6 rounded-[24px] transition-all duration-300 bg-white/90 backdrop-blur-sm flex flex-col h-full"
       style={{
-        boxShadow: '6px 6px 16px rgba(0,0,0,0.08), -6px -6px 16px rgba(255,255,255,0.9), inset 2px 2px 6px rgba(255,255,255,0.5)'
+        boxShadow: '8px 8px 20px rgba(0,0,0,0.06), -8px -8px 20px rgba(255,255,255,0.9), inset 3px 3px 8px rgba(255,255,255,0.6)'
       }}
+      dir="rtl"
     >
-      <div className="flex justify-between items-start mb-3">
-        <div className="flex-1">
-          <h3 className="text-lg font-bold text-gray-800 mb-1 leading-tight">
+      <div className="flex justify-between items-start mb-4">
+        <div className="w-12 h-12 rounded-2xl flex items-center justify-center mr-3 flex-shrink-0"
+             style={{
+               background: 'linear-gradient(145deg, #667eea, #764ba2)',
+               boxShadow: '4px 4px 10px rgba(0,0,0,0.1), -2px -2px 8px rgba(255,255,255,0.8)'
+             }}>
+          <BookOpen className="w-6 h-6 text-white" />
+        </div>
+        <div className="flex-1 text-right"> 
+          <h3 className="text-xl font-extrabold text-gray-900 mb-2 leading-tight">
             {course.name}
           </h3>
-          <p className="text-xs text-gray-500">{course.id}</p>
+          <p className="text-sm text-gray-500 line-clamp-2">{course.description}</p>
         </div>
-        <div className="w-10 h-10 rounded-2xl flex items-center justify-center ml-2 flex-shrink-0"
-             style={{
-               background: 'linear-gradient(145deg, #A8E6CF, #B3E5FC)',
-               boxShadow: '3px 3px 8px rgba(0,0,0,0.08), -3px -3px 8px rgba(255,255,255,0.8)'
-             }}>
-          <BookOpen className="w-5 h-5 text-white" />
+      </div>
+      
+      <div className="flex flex-col items-end gap-2 mb-4 text-sm text-gray-600">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold">סמסטר {course.semester}</span>
+          <Clock className="w-4 h-4 text-purple-500" />
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="font-semibold">{getYearLabel(course.year)}</span>
+          <Calendar className="w-4 h-4 text-purple-500" />
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-3">
+      <div className="flex flex-wrap gap-2.5 mb-4 mt-auto">
         <span 
-          className={`${getTypeColor(course.mandatory)} rounded-full px-2.5 py-0.5 border text-xs font-medium`}
+          className="rounded-full px-3.5 py-1.5 text-sm font-bold shadow-sm"
           style={{
-            boxShadow: '2px 2px 6px rgba(0,0,0,0.05), inset 1px 1px 3px rgba(255,255,255,0.5)'
+            background: course.mandatory 
+              ? 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+              : 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            color: 'white',
+            boxShadow: '3px 3px 8px rgba(0,0,0,0.08), inset 1px 1px 4px rgba(255,255,255,0.4)'
           }}
         >
           {getTypeLabel(course.mandatory)}
         </span>
-        <span 
-          className="rounded-full px-2.5 py-0.5 bg-white/70 border-gray-200 text-xs border"
+        
+        <span className="rounded-full px-3.5 py-1.5 bg-gradient-to-br from-purple-100 to-blue-100 text-purple-700 text-sm font-bold border border-purple-200/50"
           style={{
-            boxShadow: '2px 2px 6px rgba(0,0,0,0.05), inset 1px 1px 3px rgba(255,255,255,0.5)'
-          }}
-        >
-          <Calendar className="w-3 h-3 ml-1 inline" />
-          סמסטר {course.semester}
+            boxShadow: '3px 3px 8px rgba(0,0,0,0.05), inset 1px 1px 4px rgba(255,255,255,0.6)'
+          }}>
+          <Award className="w-3.5 h-3.5 ml-1 inline" />
+          {course.credits} נ&quot;ז
+        </span>
+      
+        <span className="rounded-full px-3.5 py-1.5 bg-gray-100 text-gray-600 text-sm font-medium border border-gray-200"
+          style={{
+            boxShadow: '3px 3px 8px rgba(0,0,0,0.05), inset 1px 1px 4px rgba(255,255,255,0.6)',
+            direction: 'ltr',
+            textAlign: 'left'
+          }}>
+          ID: {course.id}
         </span>
       </div>
 
-      <div className="flex items-center justify-between text-xs">
-        <div className="flex items-center gap-1.5 text-gray-600">
-          <Award className="w-3.5 h-3.5" />
-          <span className="font-medium">{course.credits} נ&quot;ז</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-gray-600">
-          <span>{getYearLabel(course.year)}</span>
-        </div>
-      </div>
-
       {course.prerequisites && course.prerequisites.length > 0 && (
-        <div className="mt-3 pt-3 border-t border-gray-200/50">
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <Network className="w-3 h-3" />
+        <div className="mt-auto pt-4 border-t border-gray-200/60">
+          <div className="flex items-center gap-2 text-sm text-gray-600 font-medium">
+            <Network className="w-4 h-4 text-purple-500" />
             <span>{course.prerequisites.length} דרישות קדם</span>
           </div>
         </div>

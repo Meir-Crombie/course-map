@@ -10,9 +10,9 @@ interface SearchBarProps {
 
 export default function SearchBar({ value, onChange }: SearchBarProps) {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <div 
-        className="rounded-[20px] overflow-hidden bg-white/90 backdrop-blur-sm"
+        className="rounded-[20px] overflow-hidden bg-white/90 backdrop-blur-sm transition-all duration-300 hover:shadow-lg"
         style={{
           boxShadow: '6px 6px 16px rgba(0,0,0,0.08), -6px -6px 16px rgba(255,255,255,0.9), inset 2px 2px 6px rgba(255,255,255,0.5)'
         }}
@@ -24,7 +24,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
             placeholder="חפש קורס לפי שם או קוד..."
             value={value}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-            className="w-full pr-12 pl-4 py-5 text-base border-none bg-transparent focus:outline-none focus:ring-0"
+            className="w-full pr-12 pl-4 py-5 text-base border-none bg-transparent focus:outline-none focus:ring-0 text-right"
           />
         </div>
       </div>

@@ -18,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={inter.className}>
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-50/30 via-blue-50/30 to-pink-50/30">
           <Header />
-          <main className="flex-1 p-6 md:p-8">
+          <main className="flex-1 px-4 py-6 md:px-8 md:py-8">
             {children}
           </main>
           <Footer />
