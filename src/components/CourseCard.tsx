@@ -1,6 +1,6 @@
 "use client"
 import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen } from "lucide-react"
+import { ArrowLeft, BookOpen, Tag, Calendar, Clock } from "lucide-react" 
 import Link from "next/link"
 
 interface CourseCardProps {
@@ -19,115 +19,105 @@ interface CourseCardProps {
 }
 
 export default function CourseCard({ course, index }: CourseCardProps) {
+  const isMandatory = course.mandatory
+  
+  // הגדרות סגנון מתוך משתני ה-CSS
+  const statusColor = isMandatory 
+    ? "var(--color-mandatory)" 
+    : "var(--color-optional)"  
+  
+  const statusBg = isMandatory 
+    ? "rgba(239, 68, 68, 0.1)" 
+    : "rgba(16, 185, 129, 0.1)" 
+
+  const mainIconColor = "text-blue-600" // נשאר כקלאס ברירת מחדל של טיילווינד
+
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
-      whileHover={{ 
-        y: -8,
-        boxShadow: "0 20px 40px rgba(59, 130, 246, 0.15)"
-      }}
-      className="h-full"
+    <Link 
+      href={`/courses/${course.id}`} 
+      className="h-full block group course-card"
     >
-      <div 
-        className="rounded-2xl p-6 transition-all duration-300 flex flex-col h-full"
-        style={{
-          background: "white",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
-          minHeight: "400px",
-          maxHeight: "400px"
+      <motion.article
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: index * 0.07, ease: "easeOut" }}
+        whileHover={{
+          y: -6,
+          boxShadow: "var(--shadow-card)", 
         }}
+        className="bg-white rounded-3xl p-7 transition-all duration-300 flex flex-col border border-gray-100 hover:border-gray-200"
+        style={{
+          minHeight: "100%", 
+          maxHeight: "100%",
+          boxShadow: "var(--shadow-sm)", 
+        }}
+        dir="rtl" // הגדרה גורפת לכיווניות מימין לשמאל
       >
-        {/* Status Badge */}
+        {/* TOP SECTION: Icon, Badge, and Title */}
         <div className="flex justify-between items-start mb-4">
-          <div className="p-2.5 rounded-xl bg-blue-50">
-            <BookOpen className="w-5 h-5 text-blue-600" />
+          {/* Main Icon - שימוש במשתנה primary מה-CSS */}
+          <div className="p-3 rounded-xl" style={{ backgroundColor: 'rgba(56, 128, 245, 0.1)' }}>
+            <BookOpen className="w-5 h-5" style={{ color: 'var(--color-primary)' }} />
           </div>
-          <span 
-            className="px-4 py-1.5 rounded-full text-xs font-bold"
-            style={{
-              backgroundColor: course.mandatory ? "#3B82F6" : "#10B981",
-              color: "white",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)"
-            }}
+          
+          {/* Badge (חובה/רשות) */}
+          <span
+            className={`px-3 py-1 text-xs font-semibold rounded-full`}
+            style={{ backgroundColor: statusBg, color: statusColor }}
           >
-            {course.mandatory ? 'חובה' : 'רשות'}
+            {isMandatory ? "חובה" : "רשות"}
           </span>
         </div>
 
-        {/* Course Title */}
-        <h3 
-          className="text-xl font-bold mb-3 line-clamp-2"
-          style={{
-            color: "#1F2937",
-            lineHeight: "1.3"
-          }}
-        >
+        {/* Title and Description */}
+        <h3 className="text-2xl font-extrabold mb-1 leading-tight line-clamp-2" style={{ color: 'var(--color-text-primary)' }}>
           {course.name}
         </h3>
-
-        {/* Metadata */}
-        <div className="mb-3 space-y-2">
-          <div 
-            className="flex items-center justify-between px-3 py-2 rounded-lg"
-            style={{ backgroundColor: "#F0F4F8" }}
-          >
-            <div className="flex items-center gap-2 text-sm">
-              <span className="font-semibold text-gray-700">נ״ז:</span>
-              <span className="font-bold text-blue-600">{course.credits}</span>
-            </div>
-            <div className="h-4 w-px bg-gray-300" />
-            <div className="text-sm text-gray-600">
-              {course.mandatory ? 'חובה' : 'רשות'}
-            </div>
-          </div>
-          
-          <div 
-            className="flex items-center justify-between px-3 py-2 rounded-lg"
-            style={{ backgroundColor: "#F0F4F8" }}
-          >
-            <div className="flex items-center gap-2 text-sm">
-              <span className="font-semibold text-gray-700">סמסטר:</span>
-              <span className="text-gray-900">{course.semester}</span>
-            </div>
-            <div className="h-4 w-px bg-gray-300" />
-            <div className="flex items-center gap-2 text-sm">
-              <span className="font-semibold text-gray-700">שנה:</span>
-              <span className="text-gray-900">{course.year}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Description */}
-        <p 
-          className="text-sm mb-4 line-clamp-3 flex-grow"
-          style={{
-            color: "#6B7280",
-            lineHeight: "1.6"
-          }}
-        >
-          {course.description}
+        
+        <p className="text-sm line-clamp-2 mb-5 leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+          {course.description || "תיאור קצר לא זמין. אנא בדוק את פרטי הקורס המלאים למידע נוסף."}
         </p>
 
-        {/* Button */}
-        <div className="mt-auto">
-          <Link href={`/courses/${course.id}`}>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center text-sm group"
-              style={{
-                background: "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
-                boxShadow: "0 4px 12px rgba(59, 130, 246, 0.3)"
-              }}
-            >
-              <span>פרטים נוספים</span>
-              <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-          </Link>
+        {/* INFO BLOCKS: Semester and Year (שומרים על סידור Flexbox נקי) */}
+        <div className="mb-5 mt-2 space-y-2">
+          {/* סמסטר */}
+          <div className="flex items-center text-sm px-3 py-1">
+            <Clock className="w-4 h-4 ml-2 text-amber-500" /> 
+            <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>סמסטר:</span>
+            <span className="mr-auto font-bold text-left" style={{ color: 'var(--color-text-primary)' }}>{course.semester}</span> 
+          </div>
+
+          {/* שנה */}
+          <div className="flex items-center text-sm px-3 py-1">
+            <Calendar className="w-4 h-4 ml-2 text-indigo-500" />
+            <span className="font-medium" style={{ color: 'var(--color-text-secondary)' }}>שנה:</span>
+            <span className="mr-auto font-bold text-left" style={{ color: 'var(--color-text-primary)' }}>{course.year}</span>
+          </div>
         </div>
-      </div>
-    </motion.article>
+
+        {/* Technical Data (נ״ז + קוד) - סידור סופי עם קלאסים גלובליים */}
+        <div className="grid grid-cols-2 gap-3 mb-5 pt-4 mt-auto border-t" style={{ borderColor: 'var(--color-bg-main)' }}>
+          
+          {/* נ״ז */}
+          <div className="flex items-center justify-start text-xs px-3 py-2 rounded-xl" style={{ backgroundColor: 'var(--color-bg-main)' }}>
+            <Tag className={`w-4 h-4 ml-2`} style={{ color: statusColor }} />
+            <span className="data-label" style={{ color: 'var(--color-text-secondary)' }}>נ״ז:</span>
+            <span className="data-value" style={{ color: 'var(--color-text-primary)' }}>{course.credits}</span>
+          </div>
+
+          {/* קוד קורס */}
+          <div className="flex items-center justify-start text-xs px-3 py-2 rounded-xl" style={{ backgroundColor: 'var(--color-bg-main)' }}>
+            <span className="data-label" style={{ color: 'var(--color-text-secondary)' }}>קוד:</span>
+            <span className="data-value font-mono" style={{ color: 'var(--color-text-primary)' }}>{course.id}</span>
+          </div>
+        </div>
+        
+        {/* Footer Link (חץ אלגנטי) */}
+        <div className="mt-2 flex items-center justify-between font-bold transition-colors group-hover:opacity-90" style={{ color: 'var(--color-primary)' }}>
+          <span>פרטים נוספים</span>
+          <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" /> 
+        </div>
+      </motion.article>
+    </Link>
   )
 }

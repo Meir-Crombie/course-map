@@ -247,3 +247,17 @@ a:focus-visible {
     padding: 24px 16px;
   }
 }
+/* עיצוב נתונים טכניים בתוך הכרטיס - כדי להבטיח קריאה נכונה של קודים ומספרים */
+.data-label {
+    /* התווית (למשל: נ"ז:, קוד:) תמיד מימין לשמאל */
+    direction: rtl; 
+    unicode-bidi: embed;
+}
+
+.data-value {
+    /* הערך (המספר, הקוד) צריך להיות משמאל לימין כדי לקרוא אותו נכון */
+    direction: ltr;
+    unicode-bidi: embed;
+    text-align: left; /* יישור שמאלה בתוך המקום שלו */
+    margin-right: auto; /* דוחף אותו לקצה השני */
+}
