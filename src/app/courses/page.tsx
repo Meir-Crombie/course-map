@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+"use client"
+
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Course, CourseData } from "@/entities/Course";
 import { motion, AnimatePresence } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -11,10 +13,13 @@ import CourseModal from "../../components/courses/CourseModal";
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState<CourseData[]>([]);
-  const [filteredCourses, setFilteredCourses] = useState<CourseData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<{
+    semester: string | null;
+    year: string | null;
+    type: string | null;
+  }>({
     semester: null,
     year: null,
     type: null,
@@ -25,10 +30,6 @@ export default function CoursesPage() {
   useEffect(() => {
     loadCourses();
   }, []);
-
-  useEffect(() => {
-    filterCourses();
-  }, [courses, searchQuery, filters]);
 
   const loadCourses = async () => {
     setIsLoading(true);
@@ -41,54 +42,64 @@ export default function CoursesPage() {
     setIsLoading(false);
   };
 
-  const filterCourses = () => {
+  // Use useMemo for filtering to optimize performance
+  const filteredCourses = useMemo(() => {
     let filtered = [...courses];
 
+    // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
         (course) =>
           course.name.toLowerCase().includes(query) ||
           course.name_english?.toLowerCase().includes(query) ||
-          course.code?.toLowerCase().includes(query)
+          course.code?.toLowerCase().includes(query) ||
+          course.id?.toLowerCase().includes(query)
       );
     }
 
+    // Semester filter
     if (filters.semester) {
       filtered = filtered.filter((course) => course.semester === filters.semester);
     }
 
+    // Year filter
     if (filters.year) {
       filtered = filtered.filter((course) => course.year === filters.year);
     }
 
+    // Type filter - handle both mandatory boolean and type string
     if (filters.type) {
-      filtered = filtered.filter((course) => course.type === filters.type);
+      if (filters.type === "mandatory") {
+        filtered = filtered.filter((course) => course.mandatory === true);
+      } else if (filters.type === "optional") {
+        filtered = filtered.filter((course) => course.mandatory === false);
+      }
     }
 
-    setFilteredCourses(filtered);
-  };
+    return filtered;
+  }, [courses, searchQuery, filters]);
 
-  const handleFilterChange = (key: any, value: any) => {
+  const handleFilterChange = useCallback((key: string, value: string | null) => {
     setFilters((prev) => ({
       ...prev,
       [key]: value,
     }));
-  };
+  }, []);
 
-  const handleClearFilters = () => {
+  const handleClearFilters = useCallback(() => {
     setFilters({
       semester: null,
       year: null,
       type: null,
     });
     setSearchQuery("");
-  };
+  }, []);
 
-  const handleCourseClick = (course: CourseData) => {
+  const handleCourseClick = useCallback((course: CourseData) => {
     setSelectedCourse(course);
     setIsModalOpen(true);
-  };
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto">
