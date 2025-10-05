@@ -1,3 +1,5 @@
+import coursesData from '@/data/courses.json';
+
 interface CourseData {
   id: string;
   name: string;
@@ -15,13 +17,11 @@ interface CourseData {
 export class Course {
   static async list(sortBy?: string): Promise<CourseData[]> {
     try {
-      const response = await fetch('/courses.json');
-      const data = await response.json();
-      
-      let courses = data.courses || data;
+      // Use imported data instead of fetch
+      let courses = coursesData.courses;
       
       if (sortBy === 'year') {
-        courses = courses.sort((a: CourseData, b: CourseData) => {
+        courses = [...courses].sort((a: CourseData, b: CourseData) => {
           if (a.year !== b.year) {
             return a.year.localeCompare(b.year);
           }
